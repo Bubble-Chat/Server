@@ -10,7 +10,7 @@ import lombok.*;
 @Builder
 public class User {
 
-    private String idx;
+    private String id;
 
     private String email;
 
