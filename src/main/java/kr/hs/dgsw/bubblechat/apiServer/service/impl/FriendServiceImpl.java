@@ -42,7 +42,8 @@ public class FriendServiceImpl implements FriendService {
         if(rel.getFriend_id() == null) {
             if(rel.getFriend_name() == null) throw new RuntimeException("Put the friend_name");
 
-            ArrayList<RelationEntity> relations = friendRepository.findAllByIdAndFriendName(rel.getId(), rel.getFriend_name());
+            ArrayList<RelationEntity> relations = friendRepository.findAllByIdAndFriendNameLike(rel.getId(),
+                    "%" + rel.getFriend_name() + "%");
 
             if(relations.isEmpty()) throw new RuntimeException("비었습니다.");
 

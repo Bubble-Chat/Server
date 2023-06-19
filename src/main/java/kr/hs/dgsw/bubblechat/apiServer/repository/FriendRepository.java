@@ -8,6 +8,6 @@ import java.util.ArrayList;
 public interface FriendRepository extends JpaRepository<RelationEntity, Long> {
 
     public RelationEntity findByIdAndFriendId(String id, String friend_id);
-    public ArrayList<RelationEntity> findAllByIdAndFriendName(String id, String friend_name);
+    public ArrayList<RelationEntity> findAllByIdAndFriendNameLike(String id, String friend_name);
 
 }
