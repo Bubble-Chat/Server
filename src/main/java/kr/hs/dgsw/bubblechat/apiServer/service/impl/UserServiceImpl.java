@@ -19,35 +19,10 @@ public class UserServiceImpl implements UserService  {
     @Override
     public User addUser(User user) {
 
-        String id = makeNewId();
+        UserEntity entity = user.toEntity();
+        UserEntity saved = userRepository.save(entity);
 
-        UserEntity entity = UserEntity.builder()
-                .id(id)
-                .email(user.getEmail())
-                .name(user.getName())
-                .photoPath(user.getPhotoPath())
-                .backgroundPath(user.getBackgroundPath())
-                .build();
-
-
-        userRepository.save(entity);
-
-        Optional<UserEntity> optional = userRepository.findById(id);
-        if (optional.isPresent()) {
-            UserEntity entity1 = optional.get();
-            return User.builder()
-                    .id(entity1.getId())
-                    .email(entity1.getEmail())
-                    .name(entity1.getName())
-                    .photoPath(entity1.getPhotoPath())
-                    .backgroundPath(entity1.getBackgroundPath())
-                    .build();
-        } else {
-            throw new RuntimeException("Cannot save user");
-        }
-    }
-
-    private String makeNewId() {
-        return UUID.randomUUID().toString();
+        if(!saved.equals(entity)) throw new RuntimeException("Cannot save user");
+        return saved.toDTO();
     }
 }

@@ -1,6 +1,6 @@
 package kr.hs.dgsw.bubblechat.apiServer.domain;
 
-import kr.hs.dgsw.bubblechat.apiServer.entity.RelationshipEntity;
+import kr.hs.dgsw.bubblechat.apiServer.entity.RelationEntity;
 import lombok.*;
 
 @Getter
@@ -9,15 +9,17 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Relationship {
+public class Relation {
 
     private String id;
 
     private String friend_id;
 
-    RelationshipEntity toEntity() {
-        return RelationshipEntity.builder()
-                .id(id).friendId(friend_id).build();
+    private String friend_name;
+
+    public RelationEntity toEntity() {
+        return RelationEntity.builder()
+                .id(id).friendId(friend_id).friendName(friend_name).build();
     }
 
 }
