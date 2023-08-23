@@ -27,6 +27,11 @@ public class FriendServiceImpl implements FriendService {
     public Relation relateTo(Relation relation) {
 
         RelationEntity relationEntity = relation.toEntity();
+        Optional<UserEntity> friend = userRepository.findById(relationEntity.getFriendId());
+        if(friend.isEmpty()) throw new RuntimeException("Cannot found user by id.");
+
+        relationEntity.setFriendName(friend.get().getName());
+
         RelationEntity saved = friendRepository.save(relationEntity);
 
         if(!saved.equals(relationEntity)) throw new RuntimeException("Cannot save relation");

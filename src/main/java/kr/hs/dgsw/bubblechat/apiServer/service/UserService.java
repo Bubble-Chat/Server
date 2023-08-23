@@ -6,4 +6,8 @@ public interface UserService {
 
     public User addUser(User user);
 
+    public User getByEmail(String email);
+
+    public User getUserByToken(String provider, String token);
+
 }

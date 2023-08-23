@@ -21,6 +21,7 @@ public class User {
 
     private String backgroundPath;
 
+
     public UserEntity toEntity() {
         return UserEntity.builder()
                 .id(id)

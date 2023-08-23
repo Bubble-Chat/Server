@@ -1,8 +1,12 @@
 spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
+
   jpa:
     show: true
     properties:
       hibernate:
         format_sql: true
+
+  profiles:
+    include: oauth
