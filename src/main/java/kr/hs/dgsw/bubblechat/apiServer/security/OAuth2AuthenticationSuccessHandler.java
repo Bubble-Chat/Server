@@ -28,10 +28,10 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         BubbleChatUserDetails userDetails = (BubbleChatUserDetails)authentication.getPrincipal();
         log.info("[INFO - SUCCESS] {}", userDetails);
 
-        String accessToken = jwtTokenProvider.generateToken(authentication, 30L * 60L * 1000);
-        String refreshToken = jwtTokenProvider.generateToken(authentication, 30L * 24L * 60L* 60L * 1000);
-
-        jwtTokenProvider.addTokenCookie(response, accessToken);
+//        String accessToken = jwtTokenProvider.generateToken(authentication, 30L * 60L * 1000);
+//        String refreshToken = jwtTokenProvider.generateToken(authentication, 30L * 24L * 60L* 60L * 1000);
+//
+//        jwtTokenProvider.addTokenCookie(response, accessToken);
 
         String targetUrl = UriComponentsBuilder.fromUriString(getNextPage(userDetails))
                 //.queryParam("token", accessToken)

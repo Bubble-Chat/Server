@@ -11,24 +11,18 @@ import lombok.*;
 @Builder
 public class User {
 
-    private String id;
-
     private String email;
 
     private String name;
 
     private String photoPath;
 
-    private String backgroundPath;
-
 
     public UserEntity toEntity() {
         return UserEntity.builder()
-                .id(id)
                 .email(email)
                 .name(name)
                 .photoPath(photoPath)
-                .backgroundPath(backgroundPath)
                 .build();
     }
 

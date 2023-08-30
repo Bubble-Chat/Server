@@ -1,5 +1,5 @@
 spring:
   datasource:
-    url: jdbc:mariadb://localhost:3306/bubble_chat
+    url: jdbc:mariadb://127.0.0.1:3306/bubble_chat
     username: root
-    password: parksj11
+    password: wjdghk79M

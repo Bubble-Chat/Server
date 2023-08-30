@@ -1,5 +1,5 @@
 spring:
   datasource:
-    url: jdbc:mariadb://211.53.209.159:3306/java_class
-    username: student
-    password: a1235
+    url: jdbc:mariadb://localhost:3306/bubble_chat
+    username: root
+    password: !wjdghk79M

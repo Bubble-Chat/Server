@@ -23,9 +23,9 @@ public class FriendApiController {
 
         ArrayList<User> users = new ArrayList<User>();
 
-        users.add(new User("hinu0622", "HINU0622@gmail.com", "이재진", "블라", "블라"));
-        users.add(new User("ksgyg2g7wy", "ksgyg2g7wy@privaterelay.appleid.com", "조근호", "이러쿵", "저러쿵"));
-        users.add(new User("wyk172899", "wyk172899@dgsw.hs.kr", "우영기", "어쩌고", "저쩌고"));
+//        users.add(new User("hinu0622", "HINU0622@gmail.com", "이재진", "블라", "블라"));
+//        users.add(new User("ksgyg2g7wy", "ksgyg2g7wy@privaterelay.appleid.com", "조근호", "이러쿵", "저러쿵"));
+//        users.add(new User("wyk172899", "wyk172899@dgsw.hs.kr", "우영기", "어쩌고", "저쩌고"));
 
         return ResponseEntity.ok(users);
     }

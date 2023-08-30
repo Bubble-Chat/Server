@@ -4,6 +4,7 @@ spring:
       client:
         registration:
           google:
+            redirect-uri: http://localhost:8080/login/oauth2/code/google
             client-id: 1015934528915-65mrm1mkberk0v3vh5p60qkjutcp5ie5.apps.googleusercontent.com
             client-secret: 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
             scope:

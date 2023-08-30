@@ -1,7 +1,9 @@
 package kr.hs.dgsw.bubblechat.apiServer.service;
 
+import kr.hs.dgsw.bubblechat.apiServer.domain.User;
+
 public interface ProviderService {
 
-    public String getEmailByToken(String provider, String token);
+    public User getUserByToken(String provider, String token);
 
 }
