@@ -7,17 +7,17 @@ import kr.hs.dgsw.bubblechat.apiServer.entity.UserEntity;
 import kr.hs.dgsw.bubblechat.apiServer.repository.UserRepository;
 import kr.hs.dgsw.bubblechat.apiServer.security.JwtTokenProvider;
 import kr.hs.dgsw.bubblechat.apiServer.service.ProviderService;
-import kr.hs.dgsw.bubblechat.apiServer.service.TokenService;
 import kr.hs.dgsw.bubblechat.apiServer.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service(value = "userService")
 @RequiredArgsConstructor
@@ -29,8 +29,6 @@ public class UserServiceImpl implements UserService  {
     private final ProviderService providerService;
 
     private final JwtTokenProvider jwtTokenProvider;
-
-    private final TokenService tokenService;
 
     @Override
     public Users getUsers() {
@@ -69,7 +67,9 @@ public class UserServiceImpl implements UserService  {
     public User getByEmail(String email) {
         Optional<UserEntity> entity = userRepository.findByEmail(email);
 
-        if(entity.isEmpty()) return null;
+        if(entity.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "이메일을 다시 한 번 더 확인 해보세요!");
+        };
 
         return entity.get().toDTO();
     }
@@ -96,24 +96,6 @@ public class UserServiceImpl implements UserService  {
                 .name(user.getName())
                 .email(user.getEmail())
                 .accessToken(accessToken)
-                .build();
-    }
-
-    @Override
-    public User getUserByAccessToken(String token) {
-        String email = tokenService.getEmailByToken(token);
-        Optional<UserEntity> foundUser = userRepository.findByEmail(email);
-
-        if(foundUser.isEmpty()) {
-            throw new RuntimeException("예기치 못한 오류");
-        }
-
-        UserEntity user = foundUser.get();
-
-        return User.builder()
-                .email(user.getEmail())
-                .name(user.getName())
-                .photoPath(user.getPhotoPath())
                 .build();
     }
 }

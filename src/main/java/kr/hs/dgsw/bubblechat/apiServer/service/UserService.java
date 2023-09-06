@@ -14,6 +14,4 @@ public interface UserService {
 
     public AuthUser getUserByToken(String provider, String token);
 
-    public User getUserByAccessToken(String token);
-
 }

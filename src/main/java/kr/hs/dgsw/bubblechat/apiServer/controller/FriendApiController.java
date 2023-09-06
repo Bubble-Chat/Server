@@ -1,22 +1,32 @@
 package kr.hs.dgsw.bubblechat.apiServer.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
-import kr.hs.dgsw.bubblechat.apiServer.domain.Relation;
+import kr.hs.dgsw.bubblechat.apiServer.domain.Friend;
 import kr.hs.dgsw.bubblechat.apiServer.domain.User;
+import kr.hs.dgsw.bubblechat.apiServer.domain.response.ResponseError;
+import kr.hs.dgsw.bubblechat.apiServer.security.BubbleChatUserDetails;
 import kr.hs.dgsw.bubblechat.apiServer.service.FriendService;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/v1/friend")
+@Slf4j
 public class FriendApiController {
 
     @Autowired
     private FriendService friendService;
+
+    Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @GetMapping("/list")
     public ResponseEntity<ArrayList<User>> friends(HttpServletRequest request) {
@@ -31,23 +41,28 @@ public class FriendApiController {
     }
 
     @PostMapping("/list")
-    public ResponseEntity<ArrayList<User>> searchFriends(HttpServletRequest request,
-                                                         @ModelAttribute Relation relation) {
+    public ResponseEntity<List<User>> searchFriends(HttpServletRequest request,
+                                                         @RequestParam String name) {
 
-        ArrayList<User> friends = friendService.searchFriend(relation);
+        List<User> friends = friendService.searchFriendByName(name);
 
         return ResponseEntity.ok(friends);
     }
 
-    @PostMapping("/list/relate")
-    public ResponseEntity<Relation> addFriend(HttpServletRequest request, @ModelAttribute Relation relation) {
-        Relation rel = friendService.relateTo(relation);
-        return ResponseEntity.ok(rel);
+    @GetMapping("/list/relate")
+    public ResponseEntity<Object> addFriend(HttpServletRequest request, @ModelAttribute Friend friend,
+                                             Authentication authentication) {
+        log.info("authentication {}", authentication);
+
+        String userEmail = ((BubbleChatUserDetails) authentication.getPrincipal()).getUser().getEmail();
+        Friend related = friendService.relateTo(userEmail, friend);
+        return ResponseEntity.ok(related);
+
     }
 
     @PostMapping("/list/renounce")
     public ResponseEntity<User> deleteFriend(HttpServletRequest request, @RequestParam String idx) {
-        return ResponseEntity.ok(new User());
+        return ResponseEntity.ok(null);
     }
 
 }

@@ -9,3 +9,7 @@ spring:
         format_sql: true
   profiles:
     include: oauth, local
+
+server:
+  error:
+    include-message: always
