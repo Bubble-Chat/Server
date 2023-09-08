@@ -8,13 +8,15 @@ import java.awt.*;
 public class Message {
 
     private MessageType type;
+    private String email;
     private String message;
     private String room;
 
     public Message() { }
 
-    public Message(MessageType type, String message) {
+    public Message(MessageType type, String email, String message) {
         this.type = type;
+        this.email = email;
         this.message = message;
     }
 

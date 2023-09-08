@@ -26,7 +26,12 @@ public class SocketModule {
     private DataListener<Message> onChatReceived() {
         return (senderClient, data, ackSender) -> {
             log.info(data.toString());
-            socketService.sendMessage(data.getRoom(),"get_message", senderClient, data.getMessage());
+            socketService.sendMessage(
+                    data.getRoom(),
+                    "get_message",
+                    senderClient,
+                    data.getEmail(),
+                    data.getMessage());
         };
     }
 
