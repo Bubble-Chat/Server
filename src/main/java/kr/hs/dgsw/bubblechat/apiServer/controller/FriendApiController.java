@@ -22,8 +22,6 @@ public class FriendApiController {
     @Autowired
     private FriendService friendService;
 
-    Logger logger = LoggerFactory.getLogger(this.getClass());
-
     @GetMapping("/search")
     public ResponseEntity<Users> searchFriends(HttpServletRequest request,
                                                @RequestParam String name) {
@@ -42,11 +40,6 @@ public class FriendApiController {
         Friend related = friendService.relateTo(userEmail, friend);
         return ResponseEntity.ok(related);
 
-    }
-
-    @PostMapping("/renounce")
-    public ResponseEntity<User> deleteFriend(HttpServletRequest request, @RequestParam String idx) {
-        return ResponseEntity.ok(null);
     }
 
 }
