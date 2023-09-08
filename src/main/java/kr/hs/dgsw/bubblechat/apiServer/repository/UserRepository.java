@@ -1,6 +1,5 @@
 package kr.hs.dgsw.bubblechat.apiServer.repository;
 
-import kr.hs.dgsw.bubblechat.apiServer.domain.User;
 import kr.hs.dgsw.bubblechat.apiServer.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 

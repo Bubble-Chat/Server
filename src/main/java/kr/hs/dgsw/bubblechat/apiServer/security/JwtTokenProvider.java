@@ -4,14 +4,11 @@ import io.jsonwebtoken.*;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import java.util.Base64;
 import java.util.Date;
-import java.util.stream.Collectors;
 
 @Component(value = "jwtTokenProvider")
 public class JwtTokenProvider {

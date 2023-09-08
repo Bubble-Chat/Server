@@ -4,7 +4,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import kr.hs.dgsw.bubblechat.apiServer.domain.Friend;
 import kr.hs.dgsw.bubblechat.apiServer.domain.User;
 import kr.hs.dgsw.bubblechat.apiServer.domain.Users;
-import kr.hs.dgsw.bubblechat.apiServer.domain.response.ResponseError;
 import kr.hs.dgsw.bubblechat.apiServer.security.BubbleChatUserDetails;
 import kr.hs.dgsw.bubblechat.apiServer.service.FriendService;
 import lombok.extern.slf4j.Slf4j;
@@ -14,10 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/v1/friend")
