@@ -98,4 +98,22 @@ public class UserServiceImpl implements UserService  {
                 .accessToken(accessToken)
                 .build();
     }
+
+    @Override
+    public List<User> findUserByName(String name) {
+
+        List<UserEntity> foundUsers = userRepository.findAllByNameLike("%" + name + "%");
+
+        if(foundUsers.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "그런 친구는 읎다.");
+        }
+
+        List<User> users = new ArrayList<User>();
+        for(UserEntity userEntity : foundUsers) {
+            users.add(userEntity.toDTO());
+        }
+
+        return users;
+
+    }
 }

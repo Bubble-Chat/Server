@@ -2,6 +2,7 @@ package kr.hs.dgsw.bubblechat.apiServer.service.impl;
 
 import kr.hs.dgsw.bubblechat.apiServer.domain.Friend;
 import kr.hs.dgsw.bubblechat.apiServer.domain.User;
+import kr.hs.dgsw.bubblechat.apiServer.domain.Users;
 import kr.hs.dgsw.bubblechat.apiServer.entity.FriendEntity;
 import kr.hs.dgsw.bubblechat.apiServer.repository.FriendRepository;
 import kr.hs.dgsw.bubblechat.apiServer.service.FriendService;
@@ -48,9 +49,8 @@ public class FriendServiceImpl implements FriendService {
 
     }
 
-    @Override
-    public List<User> searchFriendByName(String name) {
-        return null;
+    public Users findFriend(String name) {
+        return Users.builder().userList(userService.findUserByName(name)).build();
     }
 
     private boolean isFriend(String me, String friend) {

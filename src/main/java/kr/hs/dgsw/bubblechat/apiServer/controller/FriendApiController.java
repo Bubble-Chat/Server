@@ -3,6 +3,7 @@ package kr.hs.dgsw.bubblechat.apiServer.controller;
 import jakarta.servlet.http.HttpServletRequest;
 import kr.hs.dgsw.bubblechat.apiServer.domain.Friend;
 import kr.hs.dgsw.bubblechat.apiServer.domain.User;
+import kr.hs.dgsw.bubblechat.apiServer.domain.Users;
 import kr.hs.dgsw.bubblechat.apiServer.domain.response.ResponseError;
 import kr.hs.dgsw.bubblechat.apiServer.security.BubbleChatUserDetails;
 import kr.hs.dgsw.bubblechat.apiServer.service.FriendService;
@@ -28,28 +29,16 @@ public class FriendApiController {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @GetMapping("/list")
-    public ResponseEntity<ArrayList<User>> friends(HttpServletRequest request) {
+    @GetMapping("/search")
+    public ResponseEntity<Users> searchFriends(HttpServletRequest request,
+                                               @RequestParam String name) {
 
-        ArrayList<User> users = new ArrayList<User>();
+        Users foundFriends = friendService.findFriend(name);
 
-//        users.add(new User("hinu0622", "HINU0622@gmail.com", "이재진", "블라", "블라"));
-//        users.add(new User("ksgyg2g7wy", "ksgyg2g7wy@privaterelay.appleid.com", "조근호", "이러쿵", "저러쿵"));
-//        users.add(new User("wyk172899", "wyk172899@dgsw.hs.kr", "우영기", "어쩌고", "저쩌고"));
-
-        return ResponseEntity.ok(users);
+        return ResponseEntity.ok(foundFriends);
     }
 
-    @PostMapping("/list")
-    public ResponseEntity<List<User>> searchFriends(HttpServletRequest request,
-                                                         @RequestParam String name) {
-
-        List<User> friends = friendService.searchFriendByName(name);
-
-        return ResponseEntity.ok(friends);
-    }
-
-    @GetMapping("/list/relate")
+    @GetMapping("/relate")
     public ResponseEntity<Object> addFriend(HttpServletRequest request, @ModelAttribute Friend friend,
                                              Authentication authentication) {
         log.info("authentication {}", authentication);
@@ -60,7 +49,7 @@ public class FriendApiController {
 
     }
 
-    @PostMapping("/list/renounce")
+    @PostMapping("/renounce")
     public ResponseEntity<User> deleteFriend(HttpServletRequest request, @RequestParam String idx) {
         return ResponseEntity.ok(null);
     }
