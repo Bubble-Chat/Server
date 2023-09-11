@@ -2,9 +2,13 @@ package kr.hs.dgsw.bubblechat.apiServer.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import kr.hs.dgsw.bubblechat.apiServer.domain.AuthUser;
+import kr.hs.dgsw.bubblechat.apiServer.domain.Token;
+import kr.hs.dgsw.bubblechat.apiServer.domain.User;
+import kr.hs.dgsw.bubblechat.apiServer.security.BubbleChatUserDetails;
 import kr.hs.dgsw.bubblechat.apiServer.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,20 +18,29 @@ public class UserApiController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/signin")
+    @PostMapping("/signin")
     public ResponseEntity<AuthUser> getUserData(HttpServletRequest request,
-                                            @RequestParam(value = "provider") String provider,
-                                            @RequestParam(value = "token") String token) {
+                                                @RequestBody Token token) {
 
         // Provider에게 token을 이용해서 이메일을 얻는다.
 
         // 데이터베이스에 이메일이 등록되어 있다면 사용자 정보와 JWT을 만들어서 보내준다.
         // 없으면 error 메시지를 보낸다.
 
-        AuthUser authUser = userService.getUserByToken(provider, token);
+        AuthUser authUser = userService.getUserByToken(token.getProvider(), token.getToken());
 
         return ResponseEntity.ok(authUser);
 
+    }
+
+    @PatchMapping("/change")
+    public ResponseEntity<User> changeProfile(HttpServletRequest request,
+                                              Authentication authentication,
+                                              @RequestBody User user) {
+        String email = ((BubbleChatUserDetails) authentication.getPrincipal()).getUser().getEmail();
+        User changed = userService.changeProfile(email, user);
+
+        return ResponseEntity.ok(changed);
     }
 
 }

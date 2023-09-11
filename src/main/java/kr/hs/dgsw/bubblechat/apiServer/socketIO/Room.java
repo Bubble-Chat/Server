@@ -7,4 +7,6 @@ public class Room {
 
     private String roomIdx;
 
+    private String roomName;
+
 }

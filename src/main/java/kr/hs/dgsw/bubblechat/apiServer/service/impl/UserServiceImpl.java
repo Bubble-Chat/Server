@@ -1,5 +1,6 @@
 package kr.hs.dgsw.bubblechat.apiServer.service.impl;
 
+import jakarta.transaction.Transactional;
 import kr.hs.dgsw.bubblechat.apiServer.domain.AuthUser;
 import kr.hs.dgsw.bubblechat.apiServer.domain.User;
 import kr.hs.dgsw.bubblechat.apiServer.domain.Users;
@@ -115,5 +116,14 @@ public class UserServiceImpl implements UserService  {
 
         return users;
 
+    }
+
+    @Override
+    @Transactional
+    public User changeProfile(String myEmail, User user) {
+        UserEntity entity = userRepository.findByEmail(myEmail).get();
+        entity.setName(user.getName());
+        entity.setPhotoPath(user.getPhotoPath());
+        return entity.toDTO();
     }
 }

@@ -18,4 +18,6 @@ public interface UserService {
 
     List<User> findUserByName(String name);
 
+    User changeProfile(String myEmail, User user);
+
 }

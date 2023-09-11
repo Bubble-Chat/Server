@@ -8,10 +8,7 @@ import kr.hs.dgsw.bubblechat.apiServer.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/room")
@@ -20,7 +17,7 @@ public class RoomController {
     @Autowired
     private RoomService roomService;
 
-    @GetMapping("/create")
+    @PostMapping("/create")
     public ResponseEntity<Room> createRoom(HttpServletRequest request,
                                      Authentication authentication,
                                      @ModelAttribute Room room) {
@@ -28,7 +25,7 @@ public class RoomController {
         return ResponseEntity.ok(roomService.createRoom(room));
     }
 
-    @GetMapping("/join")
+    @PostMapping("/join")
     public ResponseEntity<UserInRoom> joinRoom(HttpServletRequest request,
                          Authentication authentication,
                          @ModelAttribute UserInRoom userInRoom) {

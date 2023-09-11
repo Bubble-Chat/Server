@@ -28,8 +28,8 @@ public class FriendApiController {
         return ResponseEntity.ok(foundFriends);
     }
 
-    @GetMapping("/relate")
-    public ResponseEntity<Object> addFriend(HttpServletRequest request, @ModelAttribute Friend friend,
+    @PostMapping("/relate")
+    public ResponseEntity<Object> addFriend(HttpServletRequest request, @RequestBody Friend friend,
                                              Authentication authentication) {
         log.info("authentication {}", authentication);
 
