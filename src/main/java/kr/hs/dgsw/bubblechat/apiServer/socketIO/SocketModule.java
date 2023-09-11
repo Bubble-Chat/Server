@@ -11,12 +11,9 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class SocketModule {
 
-    private final SocketIOServer server;
-
     private final SocketService socketService;
 
     public SocketModule(SocketIOServer server, SocketService socketService) {
-        this.server = server;
         this.socketService = socketService;
         server.addConnectListener(onConnected());
         server.addDisconnectListener(onDisconnected());
