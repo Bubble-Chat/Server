@@ -15,6 +15,8 @@ public class Room {
 
     private String roomName;
 
+    private String admin;
+
     private Long people;
 
     private String photoPath;

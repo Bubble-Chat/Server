@@ -5,7 +5,6 @@ import lombok.Data;
 @Data
 public class Room {
 
-    private String roomName;
-    private String photoPath;
+    private String roomIdx;
 
 }
