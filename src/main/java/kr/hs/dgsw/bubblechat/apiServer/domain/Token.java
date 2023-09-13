@@ -1,14 +1,12 @@
 package kr.hs.dgsw.bubblechat.apiServer.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@ToString
 public class Token {
 
     private String provider;
