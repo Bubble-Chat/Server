@@ -16,7 +16,7 @@ public interface UserService {
 
     AuthUser getUserByToken(String provider, String token);
 
-    List<User> findUserByName(String name);
+    Users findAllUserByName(String name);
 
     User changeProfile(String myEmail, User user);
 

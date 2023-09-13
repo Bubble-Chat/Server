@@ -19,15 +19,6 @@ public class FriendApiController {
     @Autowired
     private FriendService friendService;
 
-    @GetMapping("/search")
-    public ResponseEntity<Users> searchFriends(HttpServletRequest request,
-                                               @RequestParam String name) {
-
-        Users foundFriends = friendService.findFriend(name);
-
-        return ResponseEntity.ok(foundFriends);
-    }
-
     @PostMapping("/relate")
     public ResponseEntity<Object> addFriend(HttpServletRequest request, @RequestBody Friend friend,
                                              Authentication authentication) {

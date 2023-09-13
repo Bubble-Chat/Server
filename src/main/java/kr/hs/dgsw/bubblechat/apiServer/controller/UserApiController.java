@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import kr.hs.dgsw.bubblechat.apiServer.domain.AuthUser;
 import kr.hs.dgsw.bubblechat.apiServer.domain.Token;
 import kr.hs.dgsw.bubblechat.apiServer.domain.User;
+import kr.hs.dgsw.bubblechat.apiServer.domain.Users;
 import kr.hs.dgsw.bubblechat.apiServer.security.BubbleChatUserDetails;
 import kr.hs.dgsw.bubblechat.apiServer.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,15 @@ public class UserApiController {
 
         return ResponseEntity.ok(authUser);
 
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<Users> searchFriends(HttpServletRequest request,
+                                               @RequestParam String name) {
+
+        Users foundFriends = userService.findAllUserByName(name);
+
+        return ResponseEntity.ok(foundFriends);
     }
 
     @PatchMapping("/change")

@@ -101,7 +101,7 @@ public class UserServiceImpl implements UserService  {
     }
 
     @Override
-    public List<User> findUserByName(String name) {
+    public Users findAllUserByName(String name) {
 
         List<UserEntity> foundUsers = userRepository.findAllByNameLike("%" + name + "%");
 
@@ -114,7 +114,7 @@ public class UserServiceImpl implements UserService  {
             users.add(userEntity.toDTO());
         }
 
-        return users;
+        return Users.builder().userList(users).build();
 
     }
 
@@ -123,7 +123,6 @@ public class UserServiceImpl implements UserService  {
     public User changeProfile(String myEmail, User user) {
         UserEntity entity = userRepository.findByEmail(myEmail).get();
         entity.setName(user.getName());
-        entity.setPhotoPath(user.getPhotoPath());
         return entity.toDTO();
     }
 }
