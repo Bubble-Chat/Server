@@ -43,8 +43,9 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().authorizeHttpRequests((authorize) -> authorize
-                .requestMatchers("/api/v1/user/**", "/lab/index").permitAll()
-                .anyRequest().authenticated());
+                .anyRequest().permitAll());
+//                .requestMatchers("/api/v1/user/**", "/lab/index", "/login/**").permitAll()
+//                .anyRequest().authenticated());
 
         http.oauth2Login()
                 .userInfoEndpoint()
