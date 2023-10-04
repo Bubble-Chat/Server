@@ -20,7 +20,7 @@ public class RoomController {
     @PostMapping("/create")
     public ResponseEntity<Room> createRoom(HttpServletRequest request,
                                      Authentication authentication,
-                                     @ModelAttribute Room room) {
+                                     @RequestBody Room room) {
         room.setAdmin(((BubbleChatUserDetails) authentication.getPrincipal()).getUser().getEmail());
         return ResponseEntity.ok(roomService.createRoom(room));
     }
