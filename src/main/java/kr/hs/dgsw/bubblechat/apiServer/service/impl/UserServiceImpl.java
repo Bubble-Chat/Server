@@ -70,9 +70,33 @@ public class UserServiceImpl implements UserService  {
 
         if(entity.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "이메일을 다시 한 번 더 확인 해보세요!");
-        };
+        }
 
         return entity.get().toDTO();
+    }
+
+    @Override
+    public AuthUser signin(User user) {
+
+        Optional<UserEntity> found = userRepository.findByEmail(user.getEmail());
+
+        if(found.isEmpty()) {
+            user = addUser(User.builder()
+                    .name(user.getName())
+                    .email(user.getEmail()).build());
+        }
+
+        String accessToken = jwtTokenProvider.generateToken(
+                user.getEmail(),
+                new SimpleGrantedAuthority("USER"),
+                30L * 60L * 1000);
+
+        return AuthUser.builder()
+                .isExists(true)
+                .name(user.getName())
+                .email(user.getEmail())
+                .accessToken(accessToken)
+                .build();
     }
 
     @Override
