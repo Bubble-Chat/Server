@@ -20,4 +20,6 @@ public interface UserService {
 
     User changeProfile(String myEmail, User user);
 
+    AuthUser signin(User User);
+
 }
