@@ -2,7 +2,10 @@ package kr.hs.dgsw.bubblechat.apiServer.service.impl;
 
 import kr.hs.dgsw.bubblechat.apiServer.domain.Friend;
 import kr.hs.dgsw.bubblechat.apiServer.domain.User;
+import kr.hs.dgsw.bubblechat.apiServer.entity.BuddyEntity;
 import kr.hs.dgsw.bubblechat.apiServer.entity.FriendEntity;
+import kr.hs.dgsw.bubblechat.apiServer.entity.UserEntity;
+import kr.hs.dgsw.bubblechat.apiServer.repository.BuddyRepository;
 import kr.hs.dgsw.bubblechat.apiServer.repository.FriendRepository;
 import kr.hs.dgsw.bubblechat.apiServer.service.FriendService;
 import kr.hs.dgsw.bubblechat.apiServer.service.UserService;
@@ -12,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service(value = "friendService")
@@ -22,6 +26,8 @@ public class FriendServiceImpl implements FriendService {
     private final FriendRepository friendRepository;
 
     private final UserService userService;
+
+    private final BuddyRepository buddyRepository;
 
     @Override
     public Friend relateTo(String email, Friend friend) {
@@ -62,4 +68,12 @@ public class FriendServiceImpl implements FriendService {
 
     }
 
+    @Override
+    public List<BuddyEntity> getBuddy(String email) {
+
+        List<BuddyEntity> list = buddyRepository.findAllByEmail(email);
+
+
+        return list;
+    }
 }

@@ -15,6 +15,5 @@ public class Friend {
 
     private String friendEmail;
 
-    //private User friend;
 
 }
