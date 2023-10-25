@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import kr.hs.dgsw.bubblechat.apiServer.domain.User;
 import lombok.*;
 
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -21,6 +22,7 @@ public class UserEntity {
     private String name;
 
     private String photoPath;
+
 
     public User toDTO() {
         return User.builder()
