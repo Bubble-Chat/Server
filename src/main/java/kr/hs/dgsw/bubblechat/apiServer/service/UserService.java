@@ -4,8 +4,6 @@ import kr.hs.dgsw.bubblechat.apiServer.domain.AuthUser;
 import kr.hs.dgsw.bubblechat.apiServer.domain.User;
 import kr.hs.dgsw.bubblechat.apiServer.domain.Users;
 
-import java.util.List;
-
 public interface UserService {
 
     Users getUsers();
@@ -16,7 +14,7 @@ public interface UserService {
 
     AuthUser getUserByToken(String provider, String token);
 
-    Users findAllUserByName(String name);
+    Users searchUser(String name);
 
     User changeProfile(String myEmail, User user);
 

@@ -22,10 +22,11 @@ public class FriendApiController {
     @PostMapping("/relate")
     public ResponseEntity<Object> addFriend(HttpServletRequest request, @RequestBody Friend friend,
                                              Authentication authentication) {
-        log.info("authentication {}", authentication);
 
         String userEmail = ((BubbleChatUserDetails) authentication.getPrincipal()).getUser().getEmail();
+        log.info("friend {} {}", friend, userEmail);
         Friend related = friendService.relateTo(userEmail, friend);
+        log.info("related {}", related);
         return ResponseEntity.ok(related);
 
     }

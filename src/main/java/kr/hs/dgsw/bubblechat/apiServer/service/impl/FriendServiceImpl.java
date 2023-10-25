@@ -7,6 +7,7 @@ import kr.hs.dgsw.bubblechat.apiServer.repository.FriendRepository;
 import kr.hs.dgsw.bubblechat.apiServer.service.FriendService;
 import kr.hs.dgsw.bubblechat.apiServer.service.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -15,6 +16,7 @@ import java.util.Optional;
 
 @Service(value = "friendService")
 @RequiredArgsConstructor
+@Slf4j
 public class FriendServiceImpl implements FriendService {
 
     private final FriendRepository friendRepository;
@@ -38,6 +40,8 @@ public class FriendServiceImpl implements FriendService {
                 .build();
 
         FriendEntity related = friendRepository.save(friendEntity);
+
+        //log.info("[related] {}", related);
 
         return Friend.builder()
                 .email(related.getEmail())

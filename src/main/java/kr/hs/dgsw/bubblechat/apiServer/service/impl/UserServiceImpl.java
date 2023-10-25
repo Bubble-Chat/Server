@@ -125,7 +125,7 @@ public class UserServiceImpl implements UserService  {
     }
 
     @Override
-    public Users findAllUserByName(String name) {
+    public Users searchUser(String name) {
 
         List<UserEntity> foundUsers = userRepository.findAllByNameLike("%" + name + "%");
 

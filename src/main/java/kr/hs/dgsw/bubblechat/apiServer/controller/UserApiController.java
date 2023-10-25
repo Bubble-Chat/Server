@@ -2,7 +2,6 @@ package kr.hs.dgsw.bubblechat.apiServer.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import kr.hs.dgsw.bubblechat.apiServer.domain.AuthUser;
-import kr.hs.dgsw.bubblechat.apiServer.domain.Token;
 import kr.hs.dgsw.bubblechat.apiServer.domain.User;
 import kr.hs.dgsw.bubblechat.apiServer.domain.Users;
 import kr.hs.dgsw.bubblechat.apiServer.security.BubbleChatUserDetails;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.cors.CorsUtils;
 
 @RestController
 @RequestMapping("/api/v1/user")
@@ -38,11 +36,13 @@ public class UserApiController {
         return ResponseEntity.ok(authUser);
     }
 
-    @GetMapping("/search")
+    @RequestMapping("/search")
     public ResponseEntity<Users> searchFriends(HttpServletRequest request,
                                                @RequestParam String name) {
 
-        Users foundFriends = userService.findAllUserByName(name);
+        log.info("/search {}", name);
+        Users foundFriends = userService.searchUser(name);
+        log.info("/search result {}", foundFriends);
 
         return ResponseEntity.ok(foundFriends);
     }
@@ -51,8 +51,12 @@ public class UserApiController {
     public ResponseEntity<User> changeProfile(HttpServletRequest request,
                                               Authentication authentication,
                                               @RequestBody User user) {
+        log.info("[auth] {}", authentication);
         String email = ((BubbleChatUserDetails) authentication.getPrincipal()).getUser().getEmail();
+        log.info("[email1] {}", email);
+
         User changed = userService.changeProfile(email, user);
+        log.info("[changed] {}", changed);
 
         return ResponseEntity.ok(changed);
     }

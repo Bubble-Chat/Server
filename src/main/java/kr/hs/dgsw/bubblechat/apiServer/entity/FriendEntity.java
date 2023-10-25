@@ -10,6 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@ToString
 public class FriendEntity {
 
     @Id
@@ -19,5 +20,7 @@ public class FriendEntity {
     private String email;
 
     private String friendEmail;
+
+    //private UserEntity user;
 
 }
