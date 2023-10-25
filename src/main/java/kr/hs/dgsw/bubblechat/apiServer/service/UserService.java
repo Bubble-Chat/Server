@@ -16,7 +16,7 @@ public interface UserService {
 
     Users searchUser(String name);
 
-    User changeProfile(String myEmail, User user);
+    User changeProfile(String email, User user);
 
     AuthUser signin(User User);
 

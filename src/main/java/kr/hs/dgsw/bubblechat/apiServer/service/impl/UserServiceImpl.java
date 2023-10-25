@@ -144,9 +144,10 @@ public class UserServiceImpl implements UserService  {
 
     @Override
     @Transactional
-    public User changeProfile(String myEmail, User user) {
-        UserEntity entity = userRepository.findByEmail(myEmail).get();
+    public User changeProfile(String email, User user) {
+        UserEntity entity = userRepository.findByEmail(email).get();
         entity.setName(user.getName());
+        entity.setPhotoPath(user.getPhotoPath());
         return entity.toDTO();
     }
 }
