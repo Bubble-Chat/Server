@@ -47,18 +47,27 @@ public class UserApiController {
         return ResponseEntity.ok(foundFriends);
     }
 
-    @PatchMapping("/change")
-    public ResponseEntity<User> changeProfile(HttpServletRequest request,
-                                              Authentication authentication,
-                                              @RequestBody User user) {
-        log.info("[auth] {}", authentication);
+    @GetMapping("/info")
+    public ResponseEntity<User> userInfo(Authentication authentication) {
+
         String email = ((BubbleChatUserDetails) authentication.getPrincipal()).getUser().getEmail();
-        log.info("[email1] {}", email);
 
-        User changed = userService.changeProfile(email, user);
-        log.info("[changed] {}", changed);
+        User found = userService.getByEmail(email);
 
-        return ResponseEntity.ok(changed);
+        return ResponseEntity.ok(found);
+
+    }
+
+    @PatchMapping("/info")
+    public ResponseEntity<User> modifyInfo(Authentication authentication,
+                                           @RequestBody User user) {
+
+        String email = ((BubbleChatUserDetails) authentication.getPrincipal()).getUser().getEmail();
+
+        User modified = userService.changeProfile(email, user);
+
+        return ResponseEntity.ok(modified);
+
     }
 
 }
