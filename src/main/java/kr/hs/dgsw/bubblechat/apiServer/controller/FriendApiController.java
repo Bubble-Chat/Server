@@ -2,6 +2,7 @@ package kr.hs.dgsw.bubblechat.apiServer.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import kr.hs.dgsw.bubblechat.apiServer.domain.Friend;
+import kr.hs.dgsw.bubblechat.apiServer.domain.User;
 import kr.hs.dgsw.bubblechat.apiServer.domain.Users;
 import kr.hs.dgsw.bubblechat.apiServer.entity.BuddyEntity;
 import kr.hs.dgsw.bubblechat.apiServer.entity.UserEntity;
@@ -29,7 +30,7 @@ public class FriendApiController {
 
         String userEmail = ((BubbleChatUserDetails) authentication.getPrincipal()).getUser().getEmail();
         log.info("friend {} {}", friend, userEmail);
-        Friend related = friendService.relateTo(userEmail, friend);
+        User related = friendService.relateTo(userEmail, friend);
         log.info("related {}", related);
         return ResponseEntity.ok(related);
 

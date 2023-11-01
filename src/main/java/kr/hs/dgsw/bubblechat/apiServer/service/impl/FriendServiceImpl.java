@@ -30,7 +30,7 @@ public class FriendServiceImpl implements FriendService {
     private final BuddyRepository buddyRepository;
 
     @Override
-    public Friend relateTo(String email, Friend friend) {
+    public User relateTo(String email, Friend friend) {
 
         if(email.equals(friend.getFriendEmail())) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "혼자 놀고 싶으신가요ㅠ..?");
@@ -49,10 +49,9 @@ public class FriendServiceImpl implements FriendService {
 
         //log.info("[related] {}", related);
 
-        return Friend.builder()
-                .email(related.getEmail())
-                .friendEmail(related.getFriendEmail())
-                .build();
+        User userEntity = userService.getByEmail(related.getEmail());
+
+        return userEntity;
 
     }
 
