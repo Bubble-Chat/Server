@@ -14,3 +14,7 @@ server:
   error:
     include-message: always
   port: 8080
+
+socket-server:
+  host: 10.80.161.85
+  port: 6318
