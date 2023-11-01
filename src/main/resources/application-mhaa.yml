@@ -6,4 +6,4 @@ spring:
 
 socket-server:
   host: 211.53.209.159
-  port: 6318
+  port: 18093
