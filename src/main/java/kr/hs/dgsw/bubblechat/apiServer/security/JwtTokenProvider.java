@@ -14,7 +14,7 @@ import java.util.Date;
 public class JwtTokenProvider {
     private String secretKey = "dnrhddltks0803_eornalfowoeks_thdtkdgns";
 
-    private final long ACCESS_TOKEN_LIFESPAN = 30L * 60L * 1000L;
+    private final long ACCESS_TOKEN_LIFESPAN = 24L * 60L * 60L * 1000L;
 
     private final long REFRESH_TOKEN_LIFESPAN = 30L * 24L * 60L * 60L * 1000L;
 
