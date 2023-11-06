@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service(value = "RoomService")
@@ -66,5 +68,22 @@ public class RoomServiceImpl implements RoomService {
                 .idx(saved.getIdx())
                 .email(saved.getEmail())
                 .roomIdx(saved.getRoomIdx()).build();
+    }
+
+    @Override
+    public List<UserInRoom> getJoinedRoom(String email) {
+        List<UserInRoomEntity> rooms = userInRoomRepository.findByEmail(email);
+        List<UserInRoom> roomList = new ArrayList<>();
+
+        for(UserInRoomEntity userInRoomEntity : rooms) {
+            roomList.add(UserInRoom.builder()
+                    .roomIdx(userInRoomEntity.getRoomIdx())
+                    .idx(userInRoomEntity.getIdx())
+                    .email(userInRoomEntity.getEmail())
+                    .build());
+        }
+
+        return roomList;
+
     }
 }
