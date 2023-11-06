@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/room")
 public class RoomController {
@@ -32,6 +34,13 @@ public class RoomController {
         String email = ((BubbleChatUserDetails) authentication.getPrincipal()).getUser().getEmail();
         userInRoom.setEmail(email);
         return ResponseEntity.ok(roomService.joinRoom(userInRoom));
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity<List<UserInRoom>> roomList(Authentication authentication) {
+        String email = ((BubbleChatUserDetails) authentication.getPrincipal()).getUser().getEmail();
+
+        return ResponseEntity.ok(roomService.getJoinedRoom(email));
     }
 
 }
