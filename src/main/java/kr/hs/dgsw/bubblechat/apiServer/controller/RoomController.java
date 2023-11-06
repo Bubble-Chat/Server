@@ -28,7 +28,7 @@ public class RoomController {
     @PostMapping("/join")
     public ResponseEntity<UserInRoom> joinRoom(HttpServletRequest request,
                          Authentication authentication,
-                         @ModelAttribute UserInRoom userInRoom) {
+                         @RequestBody UserInRoom userInRoom) {
         String email = ((BubbleChatUserDetails) authentication.getPrincipal()).getUser().getEmail();
         userInRoom.setEmail(email);
         return ResponseEntity.ok(roomService.joinRoom(userInRoom));
