@@ -33,10 +33,12 @@ public class FriendServiceImpl implements FriendService {
     public User relateTo(String email, Friend friend) {
 
         if(email.equals(friend.getFriendEmail())) {
+            log.info("본인 친추!!");
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "혼자 놀고 싶으신가요ㅠ..?");
         }
 
         if(isFriend(email, friend.getFriendEmail())) {
+            log.info("중복 친추!!");
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "이미 친구신데요!");
         }
 
@@ -55,7 +57,7 @@ public class FriendServiceImpl implements FriendService {
 
     }
 
-    private boolean isFriend(String me, String friend) {
+    public Boolean isFriend(String me, String friend) {
 
         User user_friend = userService.getByEmail(friend);
         User user_me = userService.getByEmail(me);

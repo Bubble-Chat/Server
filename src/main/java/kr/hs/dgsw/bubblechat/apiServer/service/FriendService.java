@@ -11,6 +11,7 @@ public interface FriendService {
 
     User relateTo(String email, Friend friend);
 
+    Boolean isFriend(String me, String friend);
 
     public List<BuddyEntity> getBuddy(String email);
 }
