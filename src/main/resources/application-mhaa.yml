@@ -5,5 +5,5 @@ spring:
     password: skfmti1108
 
 socket-server:
-  host: 211.53.209.159
-  port: 18093
+  host: 10.80.163.143
+  port: 6318

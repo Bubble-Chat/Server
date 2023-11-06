@@ -16,5 +16,5 @@ server:
   port: 8080
 
 socket-server:
-  host: 10.80.161.85
+  host: 10.80.163.143
   port: 6318

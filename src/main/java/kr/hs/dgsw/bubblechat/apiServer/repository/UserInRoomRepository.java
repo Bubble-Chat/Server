@@ -10,4 +10,6 @@ public interface UserInRoomRepository extends JpaRepository<UserInRoomEntity, Lo
 
     Optional<UserInRoomEntity> findByEmailAndRoomIdx(String email, Long roomIdx);
 
+    List<UserInRoomEntity> findByEmail(String email);
+
 }
