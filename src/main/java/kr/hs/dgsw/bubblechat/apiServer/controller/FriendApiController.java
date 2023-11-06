@@ -45,4 +45,13 @@ public class FriendApiController {
 
     }
 
+    @GetMapping("/isfriend")
+    public ResponseEntity<Boolean> isFriend(@RequestParam("email") String email,
+                                            Authentication authentication) {
+
+        String userEmail = ((BubbleChatUserDetails) authentication.getPrincipal()).getUser().getEmail();
+
+        return ResponseEntity.ok(friendService.isFriend(userEmail, email));
+    }
+
 }
