@@ -34,6 +34,12 @@ public class RoomServiceImpl implements RoomService {
 
         RoomEntity saved = roomRepository.save(roomEntity);
 
+        joinRoom(UserInRoom.builder()
+                .roomIdx(saved.getIdx())
+                .roomName(saved.getRoomName())
+                .email(saved.getAdmin())
+                .build());
+
         return Room.builder()
                 .idx(saved.getIdx())
                 .roomName(saved.getRoomName())
@@ -58,8 +64,15 @@ public class RoomServiceImpl implements RoomService {
     @Override
     public UserInRoom joinRoom(UserInRoom userInRoom) {
 
+        Optional<RoomEntity> room = roomRepository.findById(userInRoom.getRoomIdx());
+
+        if(room.isEmpty()) {
+            return null;
+        }
+
         UserInRoomEntity entity = UserInRoomEntity.builder()
                 .email(userInRoom.getEmail())
+                .roomName(room.get().getRoomName())
                 .roomIdx(userInRoom.getRoomIdx()).build();
 
         UserInRoomEntity saved = userInRoomRepository.save(entity);
@@ -67,6 +80,7 @@ public class RoomServiceImpl implements RoomService {
         return UserInRoom.builder()
                 .idx(saved.getIdx())
                 .email(saved.getEmail())
+                .roomName(saved.getRoomName())
                 .roomIdx(saved.getRoomIdx()).build();
     }
 
@@ -79,6 +93,7 @@ public class RoomServiceImpl implements RoomService {
             roomList.add(UserInRoom.builder()
                     .roomIdx(userInRoomEntity.getRoomIdx())
                     .idx(userInRoomEntity.getIdx())
+                    .roomName(userInRoomEntity.getRoomName())
                     .email(userInRoomEntity.getEmail())
                     .build());
         }

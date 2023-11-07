@@ -15,6 +15,8 @@ public class UserInRoom {
 
     private String email;
 
+    private String roomName;
+
     private Long roomIdx;
 
 }

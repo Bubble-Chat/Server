@@ -20,6 +20,8 @@ public class UserInRoomEntity {
 
     private String email;
 
+    private String roomName;
+
     private Long roomIdx;
 
 }
