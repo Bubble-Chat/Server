@@ -8,7 +8,7 @@ spring:
       hibernate:
         format_sql: true
   profiles:
-    include: oauth
+    include: oauth, mhaa
 
 server:
   error:

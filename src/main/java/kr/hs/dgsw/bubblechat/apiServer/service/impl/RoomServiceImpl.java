@@ -1,12 +1,13 @@
 package kr.hs.dgsw.bubblechat.apiServer.service.impl;
 
-import kr.hs.dgsw.bubblechat.apiServer.domain.Room;
-import kr.hs.dgsw.bubblechat.apiServer.domain.UserInRoom;
+import kr.hs.dgsw.bubblechat.apiServer.domain.*;
 import kr.hs.dgsw.bubblechat.apiServer.entity.RoomEntity;
+import kr.hs.dgsw.bubblechat.apiServer.entity.UserEntity;
 import kr.hs.dgsw.bubblechat.apiServer.entity.UserInRoomEntity;
 import kr.hs.dgsw.bubblechat.apiServer.repository.RoomRepository;
 import kr.hs.dgsw.bubblechat.apiServer.repository.UserInRoomRepository;
 import kr.hs.dgsw.bubblechat.apiServer.service.RoomService;
+import kr.hs.dgsw.bubblechat.apiServer.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,8 @@ import java.util.Optional;
 public class RoomServiceImpl implements RoomService {
 
     private final RoomRepository roomRepository;
+
+    private final UserService userService;
 
     private final UserInRoomRepository userInRoomRepository;
 
@@ -100,5 +103,26 @@ public class RoomServiceImpl implements RoomService {
 
         return roomList;
 
+    }
+
+    @Override
+    public Invite inviteFriend(String friendEmail, Long roomIdx) {
+
+        Optional<RoomEntity> entity = roomRepository.findById(roomIdx);
+
+        if(entity.isEmpty()) {
+            return null;
+        }
+
+        joinRoom(UserInRoom.builder()
+                .roomIdx(entity.get().getIdx())
+                .roomName(entity.get().getRoomName())
+                .email(friendEmail)
+                .build());
+
+        User friend = userService.getByEmail(friendEmail);
+
+        return Invite.builder()
+                .friend(friend).build();
     }
 }

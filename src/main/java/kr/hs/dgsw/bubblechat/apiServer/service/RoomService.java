@@ -1,5 +1,6 @@
 package kr.hs.dgsw.bubblechat.apiServer.service;
 
+import kr.hs.dgsw.bubblechat.apiServer.domain.Invite;
 import kr.hs.dgsw.bubblechat.apiServer.domain.Room;
 import kr.hs.dgsw.bubblechat.apiServer.domain.UserInRoom;
 
@@ -16,5 +17,7 @@ public interface RoomService {
     UserInRoom joinRoom(UserInRoom userInRoom);
 
     List<UserInRoom> getJoinedRoom(String email);
+
+    Invite inviteFriend(String friendEmail, Long roomIdx);
 
 }

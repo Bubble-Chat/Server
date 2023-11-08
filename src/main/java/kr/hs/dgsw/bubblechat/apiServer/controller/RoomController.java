@@ -1,6 +1,8 @@
 package kr.hs.dgsw.bubblechat.apiServer.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
+import kr.hs.dgsw.bubblechat.apiServer.domain.Invite;
+import kr.hs.dgsw.bubblechat.apiServer.domain.InviteDTO;
 import kr.hs.dgsw.bubblechat.apiServer.domain.Room;
 import kr.hs.dgsw.bubblechat.apiServer.domain.UserInRoom;
 import kr.hs.dgsw.bubblechat.apiServer.security.BubbleChatUserDetails;
@@ -41,6 +43,17 @@ public class RoomController {
         String email = ((BubbleChatUserDetails) authentication.getPrincipal()).getUser().getEmail();
 
         return ResponseEntity.ok(roomService.getJoinedRoom(email));
+    }
+
+    @PostMapping("/invite")
+    public ResponseEntity<Invite> inviteFriend(Authentication authentication,
+                                               @RequestBody InviteDTO inviteDTO) {
+        String email = ((BubbleChatUserDetails) authentication.getPrincipal()).getUser().getEmail();
+
+        Invite invite = roomService.inviteFriend(inviteDTO.getFriendEmail(), inviteDTO.getRoomIdx());
+
+        return ResponseEntity.ok(invite);
+
     }
 
 }
