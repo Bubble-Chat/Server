@@ -14,8 +14,18 @@ CREATE TABLE friend(
 );
 
 CREATE TABLE room(
-    idx INT(5) NOT NULL AUTO_INCREMENT,
-    room_name VARCHAR(50) NOT NULL,
-    people INT(5) NOT NULL DEFAULT 0,
-    PRIMARY KEY(idx)
+     idx INT(5) NOT NULL AUTO_INCREMENT,
+     room_name VARCHAR(50) NOT NULL,
+     admin VARCHAR(150) NOT NULL,
+     people INT(5) NOT NULL DEFAULT 0,
+     photo_path VARCHAR(150),
+     PRIMARY KEY(idx)
+);
+
+CREATE TABLE user_in_room(
+     idx INT(5) NOT NULL AUTO_INCREMENT,
+     email VARCHAR(150) NOT NULL,
+     room_name VARCHAR(50) NOT NULL,
+     room_idx INT(5) NOT NULL,
+     PRIMARY KEY(idx)
 );
